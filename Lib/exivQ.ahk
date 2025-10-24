@@ -1,13 +1,21 @@
 class exivQ {
-    __New(exiv2_dll?, exivQ_dll?){
-        this.exiv2_dll := exiv2_dll
-        this.exivQ_dll := exivQ_dll
+    __New(exivQ_dll?){
+        If IsSet(exivQ_dll){
+            SplitPath(exivQ_dll,,&dllDir)
+            this.exivQ_dll := exivQ_dll
+            this.exiv2_dll := dllDir "\exiv2.dll"
+        } else {
+            this.aris := dllDir := this._findArisInstallDir("Qriist","exivQ") "\bin" 
+            this.exivQ_dll := dllDir "\exivQ.dll"
+            this.exiv2_dll := dllDir "\exiv2.dll"
+        }
+        Critical("On")
         oldWorkingDir := A_WorkingDir 
-        SplitPath(this.exivQ_dll,,&dllDir)
         A_WorkingDir := dllDir
-        this.exiv2_handle := DllCall("LoadLibrary","Str",exiv2_dll,"Ptr")
-        this.exivQ_handle := DllCall("LoadLibrary","Str",exivQ_dll,"Ptr")
+        this.exiv2_handle := DllCall("LoadLibrary","Str",this.exiv2_dll,"Ptr")
+        this.exivQ_handle := DllCall("LoadLibrary","Str",this.exivQ_dll,"Ptr")
         A_WorkingDir := oldWorkingDir
+        Critical("Off")
     }
 
     Exiv2VersionW(){
@@ -99,4 +107,18 @@ class exivQ {
     _getDllAddress(dllPath,dllfunction){
         return DllCall("GetProcAddress", "Ptr", DllCall("GetModuleHandle", "Str", dllPath, "Ptr"), "AStr", dllfunction, "Ptr")
     }
+    _findArisInstallDir(user,packageName){ ;dynamically finds a local versioned Aris installation
+      If DirExist(A_ScriptDir "\lib\Aris\" user) ;"top level" install
+         packageDir := A_ScriptDir "\lib\Aris\" user
+      else if DirExist(A_ScriptDir "\..\lib\Aris\" user) ;script one level down
+         packageDir := A_ScriptDir "\..\lib\Aris\" user
+      else
+         return ""
+      loop files (packageDir "\" packageName "@*") , "D"{
+         ;should end up with the latest installation
+         ArisDir := packageDir "\" A_LoopFileName
+      }
+      return ArisDir
+    }
+
 }

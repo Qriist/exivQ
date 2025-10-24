@@ -3,10 +3,8 @@
 #include <aris/g33kdude/cjson>
 #include <Aris/Qriist/Null> ; github:qriist/null@v1.0.0 --main Null.ahk
 ;temporary forced assignments
-exivQ_dll := A_ScriptDir "\bin\exivQ.dll"
-exiv2_dll := A_ScriptDir "\bin\exiv2.dll"
 
-exiv := exivQ(exiv2_dll,exivQ_dll)
+exiv := exivQ()
 testfile := A_ScriptDir "\samples\elsie_and_cory.jpg.xmp"
 
 ; MsgBox exiv.ExportXmpSingleKey(testfile, &e := 0)
