@@ -1,0 +1,3 @@
+LIBRARY "exivQ"
+EXPORTS
+    exivQ_Version

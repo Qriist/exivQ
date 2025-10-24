@@ -1,0 +1,36 @@
+﻿{
+"author":
+    {
+    "email": "Qriist+exivQ@gmail.com",
+    "name": "Qriist",
+    "website": ""
+    },
+"bugs":
+    {
+    "url": "https://github.com/Qriist/exivQ/issues"
+    },
+"dependencies":
+    {
+		"Qriist/Null": "github:qriist/null@^v1.0.0 --main Null.ahk",
+		"g33kdude/cjson": "^2.1.0",    
+    },
+"description": "Exiv2 bindings for AHKv2",
+"homepage": "",
+"keywords":
+    [
+    "media",
+	"tags",
+	"images",
+	"video",
+	"metadata"
+    ],
+"license": "",
+"main": "exivQ.ahk",
+"name": "Qriist/exivQ",
+"repository":
+    {
+    "type": "github",
+    "url": "Qriist/exivQ"
+    },
+"version": "v0.1.0"
+}
